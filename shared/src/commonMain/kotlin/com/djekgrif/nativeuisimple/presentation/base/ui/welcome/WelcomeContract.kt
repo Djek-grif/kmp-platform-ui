@@ -7,14 +7,16 @@ import com.djekgrif.nativeuisimple.presentation.base.core.ViewState
 class WelcomeContract {
 
     sealed class Action: ViewAction {
-        data object HomeOpened : Action()
+        data object OnSignInClick : Action()
+        data object OnSignUpClick : Action()
     }
 
     data class State(val title: String, val isProgress: Boolean = false): ViewState
 
     sealed class Effect : ViewEffect {
         sealed class Navigation : Effect() {
-
+            object GoToSignUp : Navigation()
+            object GoToSignIn : Navigation()
         }
     }
 }

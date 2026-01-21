@@ -4,9 +4,11 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.djekgrif.nativeuisimple.presentation.base.ui.welcome.WelcomeViewModel
 
-class WelcomeComponent(componentContext: ComponentContext): ScreenComponent() {
+class WelcomeComponent(componentContext: ComponentContext): ScreenComponent(componentContext) {
 
-    val welcomeViewModel = WelcomeViewModel(componentContext)
+    val welcomeViewModel = WelcomeViewModel()
 
-//    val lc = LifecycleRegistry()
+    override fun clear() {
+        welcomeViewModel.clear()
+    }
 }

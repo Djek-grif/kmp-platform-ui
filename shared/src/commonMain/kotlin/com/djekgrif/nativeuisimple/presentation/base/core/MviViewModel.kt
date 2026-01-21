@@ -13,5 +13,5 @@ interface MviViewModel<Action : ViewAction, UiState : ViewState, Effect : ViewEf
     val effect: Flow<Effect>
     val action: Flow<Action>
     fun onUIAction(action: Action)
-
+    fun clear()
 }

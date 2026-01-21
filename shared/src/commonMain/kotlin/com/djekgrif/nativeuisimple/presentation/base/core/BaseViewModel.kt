@@ -15,9 +15,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 
-abstract class BaseViewModel<Action : ViewAction, UiState : ViewState, Effect : ViewEffect>(
-    componentContext: ComponentContext
-) : ComponentContext by componentContext, MviViewModel<Action, UiState, Effect> {
+abstract class BaseViewModel<Action : ViewAction, UiState : ViewState, Effect : ViewEffect>: MviViewModel<Action, UiState, Effect> {
 
     abstract fun buildInitialUiState(): UiState
     abstract override fun onUIAction(action: Action)
@@ -38,12 +36,11 @@ abstract class BaseViewModel<Action : ViewAction, UiState : ViewState, Effect : 
     override val action: MutableSharedFlow<Action> = MutableSharedFlow()
 
     init {
-        componentContext.lifecycle.subscribe(object : Callbacks {
-            override fun onDestroy() {
-                viewModelJob.cancel()
-            }
-        })
         subscribeToAction()
+    }
+
+    override fun clear() {
+        viewModelJob.cancel()
     }
 
     private fun subscribeToAction() {
