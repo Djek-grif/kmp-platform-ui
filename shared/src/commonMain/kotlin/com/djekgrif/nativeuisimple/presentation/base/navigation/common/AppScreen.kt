@@ -9,4 +9,10 @@ sealed interface AppScreen {
 
     @Serializable
     data object SignIn: AppScreen
+
+    @Serializable
+    data object SignUp: AppScreen
+
+    @Serializable
+    data object Home : AppScreen
 }

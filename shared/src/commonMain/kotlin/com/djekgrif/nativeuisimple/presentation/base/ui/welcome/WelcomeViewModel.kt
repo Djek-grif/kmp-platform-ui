@@ -8,8 +8,8 @@ class WelcomeViewModel : BaseViewModel<WelcomeContract.Action, WelcomeContract.S
 
     override fun onUIAction(action: WelcomeContract.Action) {
         when (action) {
-            WelcomeContract.Action.OnSignInClick -> {}
-            WelcomeContract.Action.OnSignUpClick -> {}
+            WelcomeContract.Action.OnSignInClick -> setEffect { WelcomeContract.Effect.Navigation.GoToSignIn }
+            WelcomeContract.Action.OnSignUpClick -> setEffect { WelcomeContract.Effect.Navigation.GoToSignUp }
         }
     }
 }

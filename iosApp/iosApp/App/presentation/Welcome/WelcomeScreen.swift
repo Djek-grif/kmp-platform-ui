@@ -9,11 +9,13 @@ import Shared
 struct WelcomeScreen: View {
     
     let welcomeComponent: WelcomeComponent
+    let onUIAction: (WelcomeContract.Action) -> Void
     @StateValue private var state: WelcomeContract.State
     
     
     init(welcomeComponent: WelcomeComponent) {
         self.welcomeComponent = welcomeComponent
+        self.onUIAction = welcomeComponent.welcomeViewModel.onUIAction
         _state = StateValue(welcomeComponent.welcomeViewModel.viewStateValue)
     }
     
@@ -23,8 +25,13 @@ struct WelcomeScreen: View {
                     .font(.system(size: 200))
                     .foregroundColor(.accentColor)
                 Text("\(state.title)").padding()
-                Button("Click me!") {
-                    
+                
+                Button("SignIn") {
+                    onUIAction(WelcomeContract.ActionOnSignInClick())
+                }.padding(.bottom, 20)
+                
+                Button("SignUp") {
+                    onUIAction(WelcomeContract.ActionOnSignUpClick())
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
