@@ -35,6 +35,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.djekgrif.nativeuisimple.presentation.base.navigation.destination.SignUpComponent
 import com.djekgrif.nativeuisimple.presentation.base.ui.signup.SignUpContract
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.back
+import kotlinproject.composeapp.generated.resources.by_continuing_agree_terms
+import kotlinproject.composeapp.generated.resources.continue_lbl
+import kotlinproject.composeapp.generated.resources.create_account
+import kotlinproject.composeapp.generated.resources.login
+import kotlinproject.composeapp.generated.resources.password
+import kotlinproject.composeapp.generated.resources.sign_up
+import kotlinproject.composeapp.generated.resources.sign_up_to_get_started
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,10 +58,10 @@ fun SignUpScreen(component: SignUpComponent) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Sign Up") },
+                title = { Text(stringResource(Res.string.sign_up)) },
                 navigationIcon = {
                     IconButton(onClick = { onUIAction(SignUpContract.Action.OnBackClick) }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.back))
                     }
                 }
             )
@@ -75,7 +85,7 @@ fun SignUpScreen(component: SignUpComponent) {
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Create Account",
+                        text = stringResource(Res.string.create_account),
                         style = MaterialTheme.typography.headlineLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -83,7 +93,7 @@ fun SignUpScreen(component: SignUpComponent) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Sign up to get started",
+                        text = stringResource(Res.string.sign_up_to_get_started),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                     )
@@ -93,7 +103,7 @@ fun SignUpScreen(component: SignUpComponent) {
                     OutlinedTextField(
                         value = login,
                         onValueChange = { login = it },
-                        label = { Text("Login") },
+                        label = { Text(stringResource(Res.string.login)) },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         singleLine = true
@@ -104,7 +114,7 @@ fun SignUpScreen(component: SignUpComponent) {
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
+                        label = { Text(stringResource(Res.string.password)) },
                         modifier = Modifier.fillMaxWidth(),
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -117,12 +127,12 @@ fun SignUpScreen(component: SignUpComponent) {
                         onClick = { onUIAction(SignUpContract.Action.OnContinueClick) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Continue")
+                        Text(stringResource(Res.string.continue_lbl))
                     }
                 }
 
                 Text(
-                    text = "By continuing, you agree to our Terms & Conditions",
+                    text = stringResource(Res.string.by_continuing_agree_terms),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
                     textAlign = TextAlign.Center,

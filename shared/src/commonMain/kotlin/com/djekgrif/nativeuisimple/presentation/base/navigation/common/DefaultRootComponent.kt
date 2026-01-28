@@ -32,6 +32,7 @@ class DefaultRootComponent(componentContext: ComponentContext) : RootComponent, 
             is AppScreen.Welcome -> Welcome(component = WelcomeComponent(componentContext = componentContext, navigator = this))
             is AppScreen.SignIn -> SignIn(component = SignInComponent(componentContext = componentContext, navigator = this))
             is AppScreen.SignUp -> SignUp(component = SignUpComponent(componentContext = componentContext, navigator = this))
+            is AppScreen.Home -> TODO()
         }
 
     override fun push(screen: AppScreen) {

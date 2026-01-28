@@ -2,4 +2,19 @@
 <resources>
     <string name="sign_up">SignUp</string>
     <string name="sign_in">SignIn</string>
+
+    <!-- Common strings -->
+    <string name="back">Back</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="continue_lbl">Continue</string>
+    <string name="by_continuing_agree_terms">By continuing, you agree to our Terms &amp; Conditions</string>
+
+    <!-- Sign In screen -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+
+    <!-- Sign Up screen -->
+    <string name="create_account">Create Account</string>
+    <string name="sign_up_to_get_started">Sign up to get started</string>
 </resources>

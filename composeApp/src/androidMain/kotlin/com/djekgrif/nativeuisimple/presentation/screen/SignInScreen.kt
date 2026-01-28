@@ -35,6 +35,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.djekgrif.nativeuisimple.presentation.base.navigation.destination.SignInComponent
 import com.djekgrif.nativeuisimple.presentation.base.ui.signin.SignInContract
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.back
+import kotlinproject.composeapp.generated.resources.by_continuing_agree_terms
+import kotlinproject.composeapp.generated.resources.login
+import kotlinproject.composeapp.generated.resources.password
+import kotlinproject.composeapp.generated.resources.sign_in
+import kotlinproject.composeapp.generated.resources.sign_in_to_continue
+import kotlinproject.composeapp.generated.resources.welcome_back
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,10 +57,10 @@ fun SignInScreen(component: SignInComponent) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Sign In") },
+                title = { Text(stringResource(Res.string.sign_in)) },
                 navigationIcon = {
                     IconButton(onClick = { onUIAction(SignInContract.Action.OnBackClick) }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.back))
                     }
                 }
             )
@@ -75,7 +84,7 @@ fun SignInScreen(component: SignInComponent) {
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Welcome Back",
+                        text = stringResource(Res.string.welcome_back),
                         style = MaterialTheme.typography.headlineLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -83,7 +92,7 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Sign in to continue",
+                        text = stringResource(Res.string.sign_in_to_continue),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                     )
@@ -93,7 +102,7 @@ fun SignInScreen(component: SignInComponent) {
                     OutlinedTextField(
                         value = login,
                         onValueChange = { login = it },
-                        label = { Text("Login") },
+                        label = { Text(stringResource(Res.string.login)) },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         singleLine = true
@@ -104,7 +113,7 @@ fun SignInScreen(component: SignInComponent) {
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
+                        label = { Text(stringResource(Res.string.password)) },
                         modifier = Modifier.fillMaxWidth(),
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -117,12 +126,12 @@ fun SignInScreen(component: SignInComponent) {
                         onClick = { onUIAction(SignInContract.Action.OnContinueClick) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Continue")
+                        Text(stringResource(Res.string.sign_in_to_continue))
                     }
                 }
 
                 Text(
-                    text = "By continuing, you agree to our Terms & Conditions",
+                    text = stringResource(Res.string.by_continuing_agree_terms),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
                     textAlign = TextAlign.Center,
