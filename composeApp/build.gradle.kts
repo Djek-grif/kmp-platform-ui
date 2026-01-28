@@ -20,6 +20,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(compose.materialIconsExtended)
             implementation(libs.decompose)
             implementation(libs.decompose.extensions)
         }
