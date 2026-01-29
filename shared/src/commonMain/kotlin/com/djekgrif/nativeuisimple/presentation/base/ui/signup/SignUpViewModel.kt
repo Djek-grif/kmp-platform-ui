@@ -9,7 +9,8 @@ class SignUpViewModel: BaseViewModel<SignUpContract.Action, SignUpContract.State
     override fun onUIAction(action: SignUpContract.Action) {
         when(action) {
             SignUpContract.Action.OnBackClick -> setEffect { SignUpContract.Effect.Navigation.GoBack }
-            SignUpContract.Action.OnContinueClick -> { }//TODO Add Home navigation effect
+            SignUpContract.Action.OnContinueClick -> setEffect { SignUpContract.Effect.Navigation.GoToHome }
         }
     }
+
 }

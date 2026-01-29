@@ -22,6 +22,8 @@ struct ContentView: View {
             SignInScreen(signInComponent: signIn.component)
         case let signUp as RootComponentChild.SignUp:
             SignUpScreen(signUpComponent: signUp.component)
+        case let home as RootComponentChild.Home:
+            HomeScreen(homeComponent: home.component)
         default:
             Text("Unknown screen")
         }

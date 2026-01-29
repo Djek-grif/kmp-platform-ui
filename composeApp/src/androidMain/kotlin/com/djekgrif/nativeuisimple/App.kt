@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.djekgrif.nativeuisimple.presentation.base.navigation.common.RootComponent
+import com.djekgrif.nativeuisimple.presentation.screen.HomeScreen
 import com.djekgrif.nativeuisimple.presentation.screen.SignInScreen
 import com.djekgrif.nativeuisimple.presentation.screen.SignUpScreen
 import com.djekgrif.nativeuisimple.presentation.screen.WelcomeScreen
@@ -23,6 +24,7 @@ fun App(rootComponent: RootComponent) {
                 is RootComponent.Child.Welcome -> WelcomeScreen(instance.component)
                 is RootComponent.Child.SignIn -> SignInScreen(instance.component)
                 is RootComponent.Child.SignUp -> SignUpScreen(instance.component)
+                is RootComponent.Child.Home -> HomeScreen(instance.component)
             }
         }
     }

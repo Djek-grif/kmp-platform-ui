@@ -10,6 +10,7 @@ import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.djekgrif.nativeuisimple.presentation.base.navigation.common.RootComponent.Child.*
+import com.djekgrif.nativeuisimple.presentation.base.navigation.destination.HomeComponent
 import com.djekgrif.nativeuisimple.presentation.base.navigation.destination.SignInComponent
 import com.djekgrif.nativeuisimple.presentation.base.navigation.destination.SignUpComponent
 import com.djekgrif.nativeuisimple.presentation.base.navigation.destination.WelcomeComponent
@@ -32,7 +33,7 @@ class DefaultRootComponent(componentContext: ComponentContext) : RootComponent, 
             is AppScreen.Welcome -> Welcome(component = WelcomeComponent(componentContext = componentContext, navigator = this))
             is AppScreen.SignIn -> SignIn(component = SignInComponent(componentContext = componentContext, navigator = this))
             is AppScreen.SignUp -> SignUp(component = SignUpComponent(componentContext = componentContext, navigator = this))
-            is AppScreen.Home -> TODO()
+            is AppScreen.Home -> Home(component = HomeComponent(componentContext = componentContext, navigator = this))
         }
 
     override fun push(screen: AppScreen) {
