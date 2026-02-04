@@ -1,0 +1,134 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+
+    },
+    "By continuing, you agree to our Terms & Conditions" : {
+
+    },
+    "check_connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Continue" : {
+
+    },
+    "Create Account" : {
+
+    },
+    "enter_login_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter login and password."
+          }
+        }
+      }
+    },
+    "error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "Home" : {
+
+    },
+    "invalid_credentials" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid login or password."
+          }
+        }
+      }
+    },
+    "Login" : {
+
+    },
+    "network_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network error"
+          }
+        }
+      }
+    },
+    "ok" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Password" : {
+
+    },
+    "Sign In" : {
+
+    },
+    "Sign in to continue" : {
+
+    },
+    "Sign Up" : {
+
+    },
+    "Sign up to get started" : {
+
+    },
+    "SignIn" : {
+
+    },
+    "SignUp" : {
+
+    },
+    "Unknown screen" : {
+
+    },
+    "validation_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validation error"
+          }
+        }
+      }
+    },
+    "Welcome Back" : {
+
+    },
+    "Welcome to Home!" : {
+
+    },
+    "You have successfully logged in." : {
+
+    }
+  },
+  "version" : "1.0"
+}

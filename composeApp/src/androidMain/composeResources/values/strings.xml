@@ -22,4 +22,13 @@
     <string name="home">Home</string>
     <string name="welcome_to_home">Welcome to Home!</string>
     <string name="successfully_logged_in">You have successfully logged in.</string>
+
+    <string name="error">Error</string>
+    <string name="validation_error">Validation error</string>
+    <string name="enter_login_password">Please enter login and password.</string>
+    <string name="invalid_credentials">Invalid login or password.</string>
+    <string name="ok">OK</string>
+    <string name="network_error">Network error</string>
+    <string name="check_connection">Please check your internet connection and try again.</string>
+
 </resources>

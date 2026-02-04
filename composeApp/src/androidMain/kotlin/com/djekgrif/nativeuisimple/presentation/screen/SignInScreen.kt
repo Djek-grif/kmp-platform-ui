@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,11 +21,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -34,10 +37,17 @@ import com.djekgrif.nativeuisimple.presentation.base.ui.signin.SignInContract
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.back
 import kotlinproject.composeapp.generated.resources.by_continuing_agree_terms
+import kotlinproject.composeapp.generated.resources.check_connection
+import kotlinproject.composeapp.generated.resources.enter_login_password
+import kotlinproject.composeapp.generated.resources.error
+import kotlinproject.composeapp.generated.resources.invalid_credentials
 import kotlinproject.composeapp.generated.resources.login
+import kotlinproject.composeapp.generated.resources.network_error
+import kotlinproject.composeapp.generated.resources.ok
 import kotlinproject.composeapp.generated.resources.password
 import kotlinproject.composeapp.generated.resources.sign_in
 import kotlinproject.composeapp.generated.resources.sign_in_to_continue
+import kotlinproject.composeapp.generated.resources.validation_error
 import kotlinproject.composeapp.generated.resources.welcome_back
 import org.jetbrains.compose.resources.stringResource
 
@@ -46,6 +56,7 @@ import org.jetbrains.compose.resources.stringResource
 fun SignInScreen(component: SignInComponent) {
     val state = component.signInViewModel.viewState.collectAsState().value
     val onUIAction = component.signInViewModel::onUIAction
+    val focusManager = LocalFocusManager.current
 
     Scaffold(
         topBar = {
@@ -116,7 +127,10 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Button(
-                        onClick = { onUIAction(SignInContract.Action.OnContinueClick) },
+                        onClick = {
+                            focusManager.clearFocus(force = true)
+                            onUIAction(SignInContract.Action.OnContinueClick)
+                        },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(stringResource(Res.string.sign_in_to_continue))
@@ -135,4 +149,43 @@ fun SignInScreen(component: SignInComponent) {
             }
         }
     )
+
+    if (state.showInvalidValidationDialog) {
+        AlertDialog(
+            onDismissRequest = { onUIAction(SignInContract.Action.OnInvalidValidationDialogOk) },
+            title = { Text(stringResource(Res.string.validation_error)) },
+            text = { Text(stringResource(Res.string.enter_login_password)) },
+            confirmButton = {
+                TextButton(onClick = { onUIAction(SignInContract.Action.OnInvalidValidationDialogOk) }) {
+                    Text(stringResource(Res.string.ok))
+                }
+            }
+        )
+    }
+
+    if (state.showInvalidCredentialsDialog) {
+        AlertDialog(
+            onDismissRequest = { onUIAction(SignInContract.Action.OnInvalidCredentialsDialogOk) },
+            title = { Text(stringResource(Res.string.error)) },
+            text = { Text(stringResource(Res.string.invalid_credentials)) },
+            confirmButton = {
+                TextButton(onClick = { onUIAction(SignInContract.Action.OnInvalidCredentialsDialogOk) }) {
+                    Text(stringResource(Res.string.ok))
+                }
+            }
+        )
+    }
+
+    if (state.showNetworkErrorDialog) {
+        AlertDialog(
+            onDismissRequest = { onUIAction(SignInContract.Action.OnNetworkErrorDialogOk) },
+            title = { Text(stringResource(Res.string.network_error)) },
+            text = { Text(stringResource(Res.string.check_connection)) },
+            confirmButton = {
+                TextButton(onClick = { onUIAction(SignInContract.Action.OnNetworkErrorDialogOk) }) {
+                    Text(stringResource(Res.string.ok))
+                }
+            }
+        )
+    }
 }

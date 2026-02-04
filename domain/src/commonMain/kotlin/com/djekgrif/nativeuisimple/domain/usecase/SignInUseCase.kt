@@ -9,6 +9,8 @@ class SignInUseCase(private val authRepository: AuthRepository) {
         data object Success: SignInUseCaseResult
         data object InvalidValidation: SignInUseCaseResult
         data object InvalidCredentials: SignInUseCaseResult
+
+        data object NetworkError: SignInUseCaseResult
     }
 
     suspend operator fun invoke(login: String, password: String): SignInUseCaseResult {

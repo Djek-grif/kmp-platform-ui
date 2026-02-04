@@ -17,6 +17,9 @@ class SignInViewModel(private val signInUseCase: SignInUseCase): BaseViewModel<S
             is SignInContract.Action.OnContinueClick -> signIn()
             is SignInContract.Action.OnLoginChanged -> setState { copy(login = action.value) }
             is SignInContract.Action.OnPasswordChanged -> setState { copy(password = action.value) }
+            is SignInContract.Action.OnInvalidCredentialsDialogOk -> setState { copy(showInvalidCredentialsDialog = false) }
+            is SignInContract.Action.OnInvalidValidationDialogOk -> setState { copy(showInvalidValidationDialog = false) }
+            is SignInContract.Action.OnNetworkErrorDialogOk -> setState { copy(showNetworkErrorDialog = false) }
         }
     }
 
@@ -30,8 +33,9 @@ class SignInViewModel(private val signInUseCase: SignInUseCase): BaseViewModel<S
             setState { copy(isProgress = false) }
 
             when (result) {
-                SignInUseCase.SignInUseCaseResult.InvalidCredentials -> {}
-                SignInUseCase.SignInUseCaseResult.InvalidValidation -> {}
+                SignInUseCase.SignInUseCaseResult.InvalidCredentials -> setState { copy(showInvalidCredentialsDialog = true) }
+                SignInUseCase.SignInUseCaseResult.InvalidValidation -> setState { copy(showInvalidValidationDialog = true) }
+                SignInUseCase.SignInUseCaseResult.NetworkError -> setState { copy(showNetworkErrorDialog = true) }
                 SignInUseCase.SignInUseCaseResult.Success -> setEffect { SignInContract.Effect.Navigation.GoToHome }
             }
         }

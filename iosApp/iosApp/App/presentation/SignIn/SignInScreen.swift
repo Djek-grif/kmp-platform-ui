@@ -51,6 +51,7 @@ struct SignInScreen: View {
                     Spacer().frame(height: 24)
 
                     Button(action: {
+                        hideKeyboard()
                         onUIAction(SignInContract.ActionOnContinueClick())
                     }) {
                         Text("Continue")
@@ -78,6 +79,62 @@ struct SignInScreen: View {
             }) {
                 Image(systemName: "arrow.left")
             })
+            .alert(
+                NSLocalizedString("network_error", comment: ""),
+                isPresented: Binding(
+                    get: { state.showNetworkErrorDialog },
+                    set: { newValue in
+                        if newValue == false {
+                            onUIAction(SignInContract.ActionOnNetworkErrorDialogOk())
+                        }
+                    }
+                )
+            ) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
+                    onUIAction(SignInContract.ActionOnNetworkErrorDialogOk())
+                }
+            } message: {
+                Text(NSLocalizedString("check_connection", comment: ""))
+            }
+
+            // Validation alert
+            .alert(
+                NSLocalizedString("validation_error", comment: ""),
+                isPresented: Binding(
+                    get: { state.showInvalidValidationDialog },
+                    set: { newValue in
+                        if newValue == false {
+                            onUIAction(SignInContract.ActionOnInvalidValidationDialogOk())
+                        }
+                    }
+                )
+            ) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
+                    onUIAction(SignInContract.ActionOnInvalidValidationDialogOk())
+                }
+            } message: {
+                Text(NSLocalizedString("enter_login_password", comment: ""))
+            }
+
+            // Credentials alert
+            .alert(
+                NSLocalizedString("error", comment: ""),
+                isPresented: Binding(
+                    get: { state.showInvalidCredentialsDialog },
+                    set: { newValue in
+                        if newValue == false {
+                            onUIAction(SignInContract.ActionOnInvalidCredentialsDialogOk())
+                        }
+                    }
+                )
+            ) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
+                    onUIAction(SignInContract.ActionOnInvalidCredentialsDialogOk())
+                }
+            } message: {
+                Text(NSLocalizedString("invalid_credentials", comment: ""))
+            }
+            
         }
     }
 }
