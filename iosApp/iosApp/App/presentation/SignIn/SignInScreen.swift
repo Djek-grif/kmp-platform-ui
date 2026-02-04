@@ -41,26 +41,33 @@ struct SignInScreen: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
                     .keyboardType(.emailAddress)
+                    .disabled(state.isProgress)
                     
-                    SecureField("Password", text: Binding(
+                    SecureField("password", text: Binding(
                         get: { state.password },
                         set: { onUIAction(SignInContract.ActionOnPasswordChanged(value: $0)) }
                     ))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disabled(state.isProgress)
                     
                     Spacer().frame(height: 24)
 
-                    Button(action: {
+                    Button {
                         hideKeyboard()
                         onUIAction(SignInContract.ActionOnContinueClick())
-                    }) {
-                        Text("Continue")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.accentColor)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
+                    } label: {
+                        HStack {
+                            if state.isProgress {
+                                ProgressView().progressViewStyle(.circular)
+                            } else {
+                                Text(NSLocalizedString("continue", comment: ""))
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
                     }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(state.isProgress)
 
                     Spacer()
                 }

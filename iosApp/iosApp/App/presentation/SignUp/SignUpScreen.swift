@@ -50,7 +50,7 @@ struct SignUpScreen: View {
                     Button(action: {
                         onUIAction(SignUpContract.ActionOnContinueClick())
                     }) {
-                        Text("Continue")
+                        Text("continue")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.accentColor)

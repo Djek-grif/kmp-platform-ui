@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +41,7 @@ import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.back
 import kotlinproject.composeapp.generated.resources.by_continuing_agree_terms
 import kotlinproject.composeapp.generated.resources.check_connection
+import kotlinproject.composeapp.generated.resources.continue_lbl
 import kotlinproject.composeapp.generated.resources.enter_login_password
 import kotlinproject.composeapp.generated.resources.error
 import kotlinproject.composeapp.generated.resources.invalid_credentials
@@ -104,6 +108,7 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(32.dp))
 
                     OutlinedTextField(
+                        enabled = !state.isProgress,
                         value = state.login,
                         onValueChange = { onUIAction.invoke(SignInContract.Action.OnLoginChanged(it)) },
                         label = { Text(stringResource(Res.string.login)) },
@@ -115,6 +120,7 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
+                        enabled = !state.isProgress,
                         value = state.password,
                         onValueChange = { onUIAction.invoke(SignInContract.Action.OnPasswordChanged(it)) },
                         label = { Text(stringResource(Res.string.password)) },
@@ -127,13 +133,15 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Button(
-                        onClick = {
-                            focusManager.clearFocus(force = true)
-                            onUIAction(SignInContract.Action.OnContinueClick)
-                        },
+                        enabled = !state.isProgress,
+                        onClick = { onUIAction(SignInContract.Action.OnContinueClick) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(Res.string.sign_in_to_continue))
+                        if (state.isProgress) {
+                            CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(18.dp))
+                        } else {
+                            Text(stringResource(Res.string.continue_lbl))
+                        }
                     }
                 }
 
