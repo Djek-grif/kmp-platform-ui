@@ -12,9 +12,6 @@ struct SignInScreen: View {
     let onUIAction: (SignInContract.Action) -> Void
     @StateValue private var state: SignInContract.State
 
-    @State private var login: String = ""
-    @State private var password: String = ""
-
     init(signInComponent: SignInComponent) {
         self.signInComponent = signInComponent
         self.onUIAction = signInComponent.signInViewModel.onUIAction
@@ -37,14 +34,20 @@ struct SignInScreen: View {
 
                     Spacer().frame(height: 32)
 
-                    TextField("Login", text: $login)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .keyboardType(.emailAddress)
-
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-
+                    TextField("Login", text: Binding(
+                        get: { state.login },
+                        set: { onUIAction(SignInContract.ActionOnLoginChanged(value: $0)) }
+                    ))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .keyboardType(.emailAddress)
+                    
+                    SecureField("Password", text: Binding(
+                        get: { state.password },
+                        set: { onUIAction(SignInContract.ActionOnPasswordChanged(value: $0)) }
+                    ))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
                     Spacer().frame(height: 24)
 
                     Button(action: {

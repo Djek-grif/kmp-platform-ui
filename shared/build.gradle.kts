@@ -30,6 +30,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.coroutines.core)
             api(libs.decompose)
+            implementation(project(":domain"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

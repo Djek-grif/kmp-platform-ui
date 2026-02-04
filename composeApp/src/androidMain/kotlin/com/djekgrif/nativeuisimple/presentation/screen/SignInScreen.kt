@@ -23,10 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -50,9 +46,6 @@ import org.jetbrains.compose.resources.stringResource
 fun SignInScreen(component: SignInComponent) {
     val state = component.signInViewModel.viewState.collectAsState().value
     val onUIAction = component.signInViewModel::onUIAction
-
-    var login by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -100,8 +93,8 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(32.dp))
 
                     OutlinedTextField(
-                        value = login,
-                        onValueChange = { login = it },
+                        value = state.login,
+                        onValueChange = { onUIAction.invoke(SignInContract.Action.OnLoginChanged(it)) },
                         label = { Text(stringResource(Res.string.login)) },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -111,8 +104,8 @@ fun SignInScreen(component: SignInComponent) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = password,
-                        onValueChange = { password = it },
+                        value = state.password,
+                        onValueChange = { onUIAction.invoke(SignInContract.Action.OnPasswordChanged(it)) },
                         label = { Text(stringResource(Res.string.password)) },
                         modifier = Modifier.fillMaxWidth(),
                         visualTransformation = PasswordVisualTransformation(),
