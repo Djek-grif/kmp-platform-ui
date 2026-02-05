@@ -3,7 +3,6 @@ package com.djekgrif.nativeuisimple.presentation.base.navigation.destination
 import com.arkivanov.decompose.ComponentContext
 import com.djekgrif.nativeuisimple.data.repository.AuthRepositoryImp
 import com.djekgrif.nativeuisimple.data.repository.source.ApiSourceImp
-import com.djekgrif.nativeuisimple.domain.repository.AuthRepository
 import com.djekgrif.nativeuisimple.domain.usecase.SignInUseCase
 import com.djekgrif.nativeuisimple.presentation.base.navigation.common.AppScreen
 import com.djekgrif.nativeuisimple.presentation.base.navigation.common.ScreenNavigator

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -137,6 +136,7 @@ fun SignInScreen(component: SignInComponent) {
                         onClick = { onUIAction(SignInContract.Action.OnContinueClick) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
+                        focusManager.clearFocus()
                         if (state.isProgress) {
                             CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(18.dp))
                         } else {
