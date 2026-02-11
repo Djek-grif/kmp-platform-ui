@@ -29,7 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -59,7 +58,6 @@ import org.jetbrains.compose.resources.stringResource
 fun SignInScreen(component: SignInComponent) {
     val state = component.signInViewModel.viewState.collectAsState().value
     val onUIAction = component.signInViewModel::onUIAction
-    val focusManager = LocalFocusManager.current
 
     Scaffold(
         topBar = {
@@ -136,7 +134,6 @@ fun SignInScreen(component: SignInComponent) {
                         onClick = { onUIAction(SignInContract.Action.OnContinueClick) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        focusManager.clearFocus()
                         if (state.isProgress) {
                             CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(18.dp))
                         } else {

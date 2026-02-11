@@ -24,11 +24,11 @@ struct SignInScreen: View {
                 VStack(spacing: 16) {
                     Spacer()
 
-                    Text("Welcome Back")
+                    Text("welcome_back")
                         .font(.largeTitle)
                         .fontWeight(.bold)
 
-                    Text("Sign in to continue")
+                    Text("sign_in_to_continue")
                         .font(.body)
                         .foregroundColor(.gray)
 
