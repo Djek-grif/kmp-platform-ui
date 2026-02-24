@@ -5,6 +5,10 @@ import Shared
 struct iOSApp: App {
     
     @StateObject private var holder = RootHolder()
+
+    init() {
+        KoinInitializerKt.doInitKoin(appDeclaration: {_ in })
+    }
     
     var body: some Scene {
             WindowGroup {

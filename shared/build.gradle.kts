@@ -31,6 +31,7 @@ kotlin {
             implementation(libs.coroutines.core)
             api(libs.decompose)
             implementation(project(":domain"))
+            api(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

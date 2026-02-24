@@ -23,6 +23,7 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(libs.decompose)
             implementation(libs.decompose.extensions)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
