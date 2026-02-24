@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kotlinMultiplatformLibrary)
+    alias(libs.plugins.mokkery)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -38,6 +39,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.coroutines.test)
+            implementation(libs.mokkery.runtime)
         }
     }
 }
