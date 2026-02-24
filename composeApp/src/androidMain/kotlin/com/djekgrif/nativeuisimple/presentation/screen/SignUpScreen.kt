@@ -9,10 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,13 +23,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -40,10 +40,16 @@ import kotlinproject.composeapp.generated.resources.back
 import kotlinproject.composeapp.generated.resources.by_continuing_agree_terms
 import kotlinproject.composeapp.generated.resources.continue_lbl
 import kotlinproject.composeapp.generated.resources.create_account
+import kotlinproject.composeapp.generated.resources.enter_login_password
+import kotlinproject.composeapp.generated.resources.error
 import kotlinproject.composeapp.generated.resources.login
+import kotlinproject.composeapp.generated.resources.ok
 import kotlinproject.composeapp.generated.resources.password
 import kotlinproject.composeapp.generated.resources.sign_up
 import kotlinproject.composeapp.generated.resources.sign_up_to_get_started
+import kotlinproject.composeapp.generated.resources.user_already_exists
+import kotlinproject.composeapp.generated.resources.user_already_exists_message
+import kotlinproject.composeapp.generated.resources.validation_error
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,9 +57,6 @@ import org.jetbrains.compose.resources.stringResource
 fun SignUpScreen(component: SignUpComponent) {
     val state = component.signUpViewModel.viewState.collectAsState().value
     val onUIAction = component.signUpViewModel::onUIAction
-
-    var login by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -101,8 +104,9 @@ fun SignUpScreen(component: SignUpComponent) {
                     Spacer(modifier = Modifier.height(32.dp))
 
                     OutlinedTextField(
-                        value = login,
-                        onValueChange = { login = it },
+                        enabled = !state.isProgress,
+                        value = state.login,
+                        onValueChange = { onUIAction(SignUpContract.Action.OnLoginChanged(it)) },
                         label = { Text(stringResource(Res.string.login)) },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -112,8 +116,9 @@ fun SignUpScreen(component: SignUpComponent) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = password,
-                        onValueChange = { password = it },
+                        enabled = !state.isProgress,
+                        value = state.password,
+                        onValueChange = { onUIAction(SignUpContract.Action.OnPasswordChanged(it)) },
                         label = { Text(stringResource(Res.string.password)) },
                         modifier = Modifier.fillMaxWidth(),
                         visualTransformation = PasswordVisualTransformation(),
@@ -124,10 +129,15 @@ fun SignUpScreen(component: SignUpComponent) {
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Button(
+                        enabled = !state.isProgress,
                         onClick = { onUIAction(SignUpContract.Action.OnContinueClick) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(Res.string.continue_lbl))
+                        if (state.isProgress) {
+                            CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(18.dp))
+                        } else {
+                            Text(stringResource(Res.string.continue_lbl))
+                        }
                     }
                 }
 
@@ -143,4 +153,30 @@ fun SignUpScreen(component: SignUpComponent) {
             }
         }
     )
+
+    if (state.showInvalidValidationDialog) {
+        AlertDialog(
+            onDismissRequest = { onUIAction(SignUpContract.Action.OnInvalidValidationDialogOk) },
+            title = { Text(stringResource(Res.string.validation_error)) },
+            text = { Text(stringResource(Res.string.enter_login_password)) },
+            confirmButton = {
+                TextButton(onClick = { onUIAction(SignUpContract.Action.OnInvalidValidationDialogOk) }) {
+                    Text(stringResource(Res.string.ok))
+                }
+            }
+        )
+    }
+
+    if (state.showUserAlreadyExistsDialog) {
+        AlertDialog(
+            onDismissRequest = { onUIAction(SignUpContract.Action.OnUserAlreadyExistsDialogOk) },
+            title = { Text(stringResource(Res.string.error)) },
+            text = { Text(stringResource(Res.string.user_already_exists_message)) },
+            confirmButton = {
+                TextButton(onClick = { onUIAction(SignUpContract.Action.OnUserAlreadyExistsDialogOk) }) {
+                    Text(stringResource(Res.string.ok))
+                }
+            }
+        )
+    }
 }

@@ -5,6 +5,7 @@ import com.djekgrif.nativeuisimple.data.repository.source.ApiSource
 import com.djekgrif.nativeuisimple.data.repository.source.ApiSourceImp
 import com.djekgrif.nativeuisimple.domain.repository.AuthRepository
 import com.djekgrif.nativeuisimple.domain.usecase.SignInUseCase
+import com.djekgrif.nativeuisimple.domain.usecase.SignUpUseCase
 import com.djekgrif.nativeuisimple.presentation.base.ui.home.HomeViewModel
 import com.djekgrif.nativeuisimple.presentation.base.ui.signin.SignInViewModel
 import com.djekgrif.nativeuisimple.presentation.base.ui.signup.SignUpViewModel
@@ -23,6 +24,7 @@ val appModule = module {
 
     // Use cases
     factoryOf(::SignInUseCase)
+    factoryOf(::SignUpUseCase)
 
     // ViewModels
     factoryOf(::HomeViewModel)

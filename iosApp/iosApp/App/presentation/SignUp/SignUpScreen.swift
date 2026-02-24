@@ -12,9 +12,6 @@ struct SignUpScreen: View {
     let onUIAction: (SignUpContract.Action) -> Void
     @StateValue private var state: SignUpContract.State
 
-    @State private var login: String = ""
-    @State private var password: String = ""
-
     init(signUpComponent: SignUpComponent) {
         self.signUpComponent = signUpComponent
         self.onUIAction = signUpComponent.signUpViewModel.onUIAction
@@ -37,26 +34,40 @@ struct SignUpScreen: View {
 
                     Spacer().frame(height: 32)
 
-                    TextField("Login", text: $login)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .keyboardType(.emailAddress)
+                    TextField("Login", text: Binding(
+                        get: { state.login },
+                        set: { onUIAction(SignUpContract.ActionOnLoginChanged(value: $0)) }
+                    ))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .keyboardType(.emailAddress)
+                    .disabled(state.isProgress)
 
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    SecureField("Password", text: Binding(
+                        get: { state.password },
+                        set: { onUIAction(SignUpContract.ActionOnPasswordChanged(value: $0)) }
+                    ))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disabled(state.isProgress)
 
                     Spacer().frame(height: 24)
 
-                    Button(action: {
+                    Button {
+                        hideKeyboard()
                         onUIAction(SignUpContract.ActionOnContinueClick())
-                    }) {
-                        Text("continue")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.accentColor)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
+                    } label: {
+                        HStack {
+                            if state.isProgress {
+                                ProgressView().progressViewStyle(.circular)
+                            } else {
+                                Text(NSLocalizedString("continue", comment: ""))
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
                     }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(state.isProgress)
 
                     Spacer()
                 }
@@ -75,6 +86,40 @@ struct SignUpScreen: View {
             }) {
                 Image(systemName: "arrow.left")
             })
+            .alert(
+                NSLocalizedString("validation_error", comment: ""),
+                isPresented: Binding(
+                    get: { state.showInvalidValidationDialog },
+                    set: { newValue in
+                        if newValue == false {
+                            onUIAction(SignUpContract.ActionOnInvalidValidationDialogOk())
+                        }
+                    }
+                )
+            ) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
+                    onUIAction(SignUpContract.ActionOnInvalidValidationDialogOk())
+                }
+            } message: {
+                Text(NSLocalizedString("enter_login_password", comment: ""))
+            }
+            .alert(
+                NSLocalizedString("error", comment: ""),
+                isPresented: Binding(
+                    get: { state.showUserAlreadyExistsDialog },
+                    set: { newValue in
+                        if newValue == false {
+                            onUIAction(SignUpContract.ActionOnUserAlreadyExistsDialogOk())
+                        }
+                    }
+                )
+            ) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
+                    onUIAction(SignUpContract.ActionOnUserAlreadyExistsDialogOk())
+                }
+            } message: {
+                Text(NSLocalizedString("user_already_exists_message", comment: ""))
+            }
         }
     }
 }

@@ -142,6 +142,28 @@
     "Unknown screen" : {
 
     },
+    "user_already_exists" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account already exists"
+          }
+        }
+      }
+    },
+    "user_already_exists_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An account with this login already exists. Please try a different one."
+          }
+        }
+      }
+    },
     "validation_error" : {
       "extractionState" : "manual",
       "localizations" : {

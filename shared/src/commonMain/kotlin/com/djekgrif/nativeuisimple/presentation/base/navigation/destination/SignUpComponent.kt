@@ -1,6 +1,7 @@
 package com.djekgrif.nativeuisimple.presentation.base.navigation.destination
 
 import com.arkivanov.decompose.ComponentContext
+import com.djekgrif.nativeuisimple.di.getViewModel
 import com.djekgrif.nativeuisimple.presentation.base.navigation.common.AppScreen
 import com.djekgrif.nativeuisimple.presentation.base.navigation.common.ScreenNavigator
 import com.djekgrif.nativeuisimple.presentation.base.ui.signup.SignUpContract
@@ -9,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class SignUpComponent(componentContext: ComponentContext, navigator: ScreenNavigator): ScreenComponent(componentContext, navigator) {
 
-    val signUpViewModel = SignUpViewModel()
+    val signUpViewModel = getViewModel<SignUpViewModel>()
 
     init {
         componentScope.launch {

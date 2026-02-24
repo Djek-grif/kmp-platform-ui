@@ -11,4 +11,8 @@ class AuthRepositoryImp(private val apiSource: ApiSource): AuthRepository {
     override suspend fun signIn(login: String, password: String): DResult<UserSession> {
         return apiSource.signIn(login, password).toDResult { session -> session  }
     }
+
+    override suspend fun signUp(login: String, password: String): DResult<UserSession> {
+        return apiSource.signUp(login, password).toDResult { session -> session }
+    }
 }

@@ -5,4 +5,5 @@ import com.djekgrif.nativeuisimple.domain.model.UserSession
 
 interface ApiSource {
     suspend fun signIn(login: String, password: String): ApiResult<UserSession>
+    suspend fun signUp(login: String, password: String): ApiResult<UserSession>
 }

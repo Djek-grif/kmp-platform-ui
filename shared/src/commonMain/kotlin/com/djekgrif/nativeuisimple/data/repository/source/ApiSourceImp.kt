@@ -13,4 +13,9 @@ class ApiSourceImp: ApiSource {
             ApiResult.Success(UserSession("token_value", "userId"))
         } else ApiResult.Error(ApiResult.Error.StatusCode.INVALID_CREDENTIALS)
     }
+
+    override suspend fun signUp(login: String, password: String): ApiResult<UserSession> {
+        delay(2000) // simulate network delay
+        return ApiResult.Success(UserSession("token_value", "userId"))
+    }
 }
